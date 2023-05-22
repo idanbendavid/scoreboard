@@ -1,40 +1,35 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Football from './src/components/football';
-import SportList from './src/components/sportList';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoadingScreen from './src/components/screens/loadingScreen';
+import SportsListScreen from './src/components/screens/sportList';
+import FootballScreen from './src/components/screens/football';
+import BasketballScreen from './src/components/screens/basketball';
+import VolleyballScreen from './src/components/screens/volleyball';
+import TennisScreen from './src/components/screens/tennis';
+import HandballScreen from './src/components/screens/handball';
+import EnterTeamNamesScreen from './src/components/common/teamNames';
+import EndGame from './src/components/common/endGame';
 
-export default function App() {
-  // const message = 'hello';
+const Stack = createStackNavigator();
+
+function App() {
   
-  // const [firstTeamName,setFirstTeamName] = useState("");
-  // const [firstTeamScore, setFirstTeamScore] = useState(0);
-
-  // const [secondTeamName,setSecondTeamName] = useState("");
-  // const [secondTeamScore, setSecondTeamScore] = useState(0);
-  
-  // const finalScore = ['Win','Lose','Draw'];
-
-
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
-        {/* <Text>hello world</Text> */}
-        {/* <Text>{message} world</Text> */}
-        <Football />
-        <SportList/>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="loading">
+        <Stack.Screen name="loading" component={LoadingScreen} />
+        <Stack.Screen name="sportList" component={SportsListScreen} />
+        <Stack.Screen name="football" component={FootballScreen} />
+        <Stack.Screen name="basketball" component={BasketballScreen} />
+        <Stack.Screen name="volleyball" component={VolleyballScreen} />
+        <Stack.Screen name="tennis" component={TennisScreen} />
+        <Stack.Screen name="handball" component={HandballScreen} />
+        <Stack.Screen name="teamNames" component={EnterTeamNamesScreen} />
+        <Stack.Screen name="endGame" component={EndGame} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    // flexDirection: 'row',
-    // alignItems: 'flex-start',
-    // backgroundColor: 'red'
-  },
-  container: {
-    flex: 1,
-  },
-});
+export default App;
