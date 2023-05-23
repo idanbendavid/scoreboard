@@ -44,7 +44,6 @@ const Stopwatch = () => {
 
   return (
     <View>
-      <Text>Stopwatch</Text>
       <Text>{formatTime(elapsedSeconds)}</Text>
       {isRunning ? (
         <Button title="Stop" onPress={handleStop} />
