@@ -30,8 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "eslint-plugin-react": "^7.32.2",
-    "typescript": "^5.0.4"
+    "eslint-plugin-react": "^7.32.2"
   },
   "private": true
 }
