@@ -7,13 +7,13 @@ import FootballScreen from './src/components/screens/football';
 import BasketballScreen from './src/components/screens/basketball';
 import VolleyballScreen from './src/components/screens/volleyball';
 import HandballScreen from './src/components/screens/handball';
-import EnterTeamNamesScreen from './src/components/common/teamNames';
+import EnterContestors from './src/components/common/contestors';
 import EndGame from './src/components/common/endGame';
 
 const Stack = createStackNavigator();
 
 function App() {
-  
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -22,13 +22,13 @@ function App() {
         {/* ---------------  initial route  ------------------ */}
 
         <Stack.Screen name="sportList" component={SportsListScreen} />
-        <Stack.Screen name="contestors" component={EnterTeamNamesScreen} />
+        <Stack.Screen name="contestors" component={EnterContestors} />
 
-        <Stack.Screen name="football" component={FootballScreen} />
-        <Stack.Screen name="basketball" component={BasketballScreen} />
-        <Stack.Screen name="volleyball" component={VolleyballScreen} />
-        <Stack.Screen name="handball" component={HandballScreen} />
-        <Stack.Screen name="endGame" component={EndGame} />
+        <Stack.Screen options={{headerShown: false}} name="football" component={FootballScreen} />
+        <Stack.Screen options={{headerShown: false}} name="basketball" component={BasketballScreen} />
+        <Stack.Screen options={{headerShown: false}} name="volleyball" component={VolleyballScreen} />
+        <Stack.Screen options={{headerShown: false}} name="handball" component={HandballScreen} />
+        <Stack.Screen options={{headerShown: true}} name="endGame" component={EndGame} />
       </Stack.Navigator>
     </NavigationContainer>
   );
