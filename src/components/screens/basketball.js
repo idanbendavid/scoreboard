@@ -5,6 +5,8 @@ import EndGame from '../../components/common/endGame';
 import setOrientation from '../common/orientation';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import HandleTeamsScores from '../common/teamScores';
+import LazyLoadingImage from '../../components/common/lazyLoading';
+
 
 const BasketballScreen = ({ route }) => {
     const { teamNames, backgroundImage } = route.params;
@@ -14,7 +16,7 @@ const BasketballScreen = ({ route }) => {
         twoPoint: 2,
         threePoint: 3,
     };
-    
+
     useEffect(() => {
         setOrientation('landscape');
 
@@ -26,11 +28,10 @@ const BasketballScreen = ({ route }) => {
 
     return (
         <View>
-            <Image source={backgroundImage} />
-            <Text>Basketball</Text>
-            <Stopwatch/>
-            <HandleTeamsScores teamAName={teamNames.teamA} teamBName={teamNames.teamB} points={points} sport={sport}/>
-            <EndGame/>
+            <LazyLoadingImage source={backgroundImage} />
+            <Stopwatch />
+            <HandleTeamsScores home={teamNames.home} away={teamNames.away} points={points} sport={sport} />
+            <EndGame />
         </View >
     );
 };

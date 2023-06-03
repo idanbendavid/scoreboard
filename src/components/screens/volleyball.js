@@ -3,6 +3,7 @@ import { View, Image, Text, Button } from 'react-native';
 import Stopwatch from '../../components/common/stopwatch';
 import EndGame from '../../components/common/endGame';
 import HandleTeamsScores from '../../components/common/teamScores';
+import LazyLoadingImage from '../../components/common/lazyLoading';
 import setOrientation from '../common/orientation';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
@@ -27,10 +28,10 @@ const VolleyballScreen = ({ route }) => {
 
   return (
     <View>
-      <Image source={backgroundImage} />
+      <LazyLoadingImage source={backgroundImage} />
       <Text>Volleyball</Text>
       <Stopwatch />
-      <HandleTeamsScores teamAName={teamNames.teamA} teamBName={teamNames.teamB} points={points} sport={sport}/>
+      <HandleTeamsScores home={teamNames.home} away={teamNames.away} points={points} sport={sport} />
       <EndGame />
     </View>
   );

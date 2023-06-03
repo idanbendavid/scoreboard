@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Modal, Button, Text } from 'react-native';
+import { View, Modal, Button, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import setOrientation from '../common/orientation';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 
-const EndGame = ({ onSave, onDiscard }) => {
+const EndGame = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleSave = () => {
-    // onSave();
     setModalVisible(false);
   };
 
   const handleDiscard = () => {
-    // onDiscard();
     setModalVisible(false);
   };
 
@@ -27,7 +25,7 @@ const EndGame = ({ onSave, onDiscard }) => {
   }, []);
 
   return (
-    <View>
+    <View style={styles.endGameContainer}>
       <Modal visible={modalVisible} animationType="slide">
         <View>
           <Text>End Game Confirmation</Text>
@@ -36,9 +34,34 @@ const EndGame = ({ onSave, onDiscard }) => {
           <Button title="Discard" onPress={handleDiscard} />
         </View>
       </Modal>
-      <Button title="End Game" onPress={() => setModalVisible(true)} />
+      <TouchableOpacity title="End Game" onPress={() => setModalVisible(true)} style={styles.endGameDisplay}>
+      <Text style={styles.text}>End Game</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  endGameContainer:{
+    alignItems: 'center',
+    marginTop: 30
+  },
+  endGameDisplay:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
+})
 
 export default EndGame;

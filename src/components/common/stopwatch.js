@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Button, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 const Stopwatch = () => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
@@ -43,16 +45,54 @@ const Stopwatch = () => {
   };
 
   return (
-    <View>
-      <Text>{formatTime(elapsedSeconds)}</Text>
-      {isRunning ? (
-        <Button title="Stop" onPress={handleStop} />
-      ) : (
-        <Button title="Start" onPress={handleStart} />
-      )}
-      <Button title="Reset" onPress={handleReset} />
+    <View style={styles.stopwatchContainer}>
+      <Text style={styles.time}>{formatTime(elapsedSeconds)}</Text>
+      <View style={styles.timeActions}>
+        {!isRunning &&
+          <FontAwesome name="play-circle" style={styles.play} onPress={handleStart} />
+        }
+        {isRunning &&
+          <>
+            <FontAwesome name="pause-circle" style={styles.pause} onPress={handleStop} />
+            <FontAwesome name="stop-circle" style={styles.stop} onPress={handleReset} />
+          </>
+        }
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  stopwatchContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  timeActions: {
+    flexDirection: 'row-reverse',
+  },
+  time: {
+    color: 'white',
+    fontSize: 45,
+    marginLeft: 5
+  },
+  play: {
+    fontSize: 40,
+    color: 'black',
+    marginLeft: 5,
+  },
+  pause: {
+    fontSize: 40,
+    color: 'black',
+    marginStart:10
+  },
+  stop: {
+    fontSize: 40,
+    color: 'black',
+    marginEnd: 5
+  }
+})
+
 
 export default Stopwatch;
