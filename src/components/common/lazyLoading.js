@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image } from 'react-native';
+import { View, ImageBackground, StyleSheet } from 'react-native';
 
 const LazyLoadingImage = ({ source }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -9,11 +9,17 @@ const LazyLoadingImage = ({ source }) => {
   };
 
   return (
-    <View>
-      {isLoading && <ActivityIndicator />}
-      <Image source={source} onLoad={handleImageLoad} />
+    <View resizeMode={'contain'}>
+      <ImageBackground source={source} style={styles.image} onLoad={handleImageLoad} />
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  image: {
+    position: 'absolute',
+    width: '100%', 
+    height: 450
+  }
+})
 export default LazyLoadingImage;
