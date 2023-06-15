@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   image: {
     position: 'absolute',
     width: '100%', 
-    height: 450
+    height: undefined,
+    aspectRatio:2
   }
 })
 export default LazyLoadingImage;

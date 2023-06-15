@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import BasketballScores from './basketballScores';
 
@@ -44,18 +44,17 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row-reverse',
         alignItems: 'center',
-        justifyContent: 'center',
+        width: '100%',
+        justifyContent: 'space-evenly',
+        
     },
     homeContainer: {
         alignItems: 'center',
-        justifyContent: 'center',
-        width: '35%',
     },
     home: {
-        color: 'white',
+        color: 'black',
         textTransform: 'capitalize',
         fontSize: 40,
-        marginTop: 5,
     },
     homeScore: {
         color: 'white',
@@ -64,25 +63,21 @@ const styles = StyleSheet.create({
     },
     awayContainer: {
         alignItems: 'center',
-        justifyContent: 'center',
-        width: '35%',
     },
     away: {
-        color: 'white',
+        color: 'black',
         textTransform: 'capitalize',
         fontSize: 40,
-        marginTop: 5
     },
     awayScore: {
         color: 'white',
         fontSize: 50,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     versus: {
         color: 'black',
         fontSize: 60,
         fontWeight: 'bold',
-        marginLeft: 10
     },
     points: {
         backgroundColor: 'grey',

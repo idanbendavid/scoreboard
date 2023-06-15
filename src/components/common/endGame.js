@@ -44,7 +44,7 @@ const EndGame = () => {
 const styles = StyleSheet.create({
   endGameContainer:{
     alignItems: 'center',
-    marginTop: 30
+    marginTop: 10
   },
   endGameDisplay:{
     alignItems: 'center',

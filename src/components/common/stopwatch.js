@@ -67,15 +67,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
   },
   timeActions: {
     flexDirection: 'row-reverse',
   },
   time: {
-    color: 'white',
+    color: 'black',
     fontSize: 45,
-    marginLeft: 5
+    marginLeft: 8
   },
   play: {
     fontSize: 40,
