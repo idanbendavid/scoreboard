@@ -13,18 +13,15 @@ const LoadingScreen = () => {
     setOrientation('portrait');
 
     return () => {
-      // Unlock orientation when component is unmounted
       ScreenOrientation.unlockAsync();
     };
   }, []);
   
   return (
     <View style={styles.container}>
-      {/* <Image source={require('./assets/background.jpg')} style={styles.backgroundImage} /> */}
       <Image style={styles.backgroundImage} />
-      {/* Add your app name and other elements */}
       <Button title="Continue"  onPress={() => {
-        navigation.navigate("sportList");
+        navigation.navigate("Sport");
       }} />
     </View>
   );

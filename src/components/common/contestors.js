@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
+import pointSystem from './pointsSystem';
 
 const EnterContestors = ({ navigation, route }) => {
   const [home, setHome] = useState('Home');
@@ -7,9 +8,11 @@ const EnterContestors = ({ navigation, route }) => {
 
   const handleStartGame = () => {
     const { sport } = route.params;
-    navigation.navigate(sport.name.toLowerCase(), {
+    navigation.navigate("scoreboard", {
+      sport: sport.name.toLowerCase(),
       teamNames: { home, away },
       backgroundImage: sport.backgroundImage,
+      points: pointSystem(sport.name)
     });
   };
 
