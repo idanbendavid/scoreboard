@@ -7,6 +7,16 @@ export default function pointSystem(sportName) {
                 threePoint: 3,
             };
             break;
+        case 'american football':
+            points = {
+                TouchDown: 6,
+                FieldGoal: 3,
+                safety: 2,
+                TDTryOrSafety: 1,
+                TDExtraTD: 2,
+                noScore: 0,
+            }
+            break;
         default:
             points = 1;
     }

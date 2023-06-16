@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import BasketballScores from './basketballScores';
+import BasketballPoints from './basketballPoints';
+import AmericanFootballPoints from './americanFootballPoints';
 
-const HandleTeamsScores = ({ home, away, points, sport }) => {
+const HandleTeamsPoints = ({ home, away, points, sport }) => {
     const [homeScore, setHomeScore] = useState(0);
     const [awayScore, setAwayScore] = useState(0);
 
@@ -17,7 +18,7 @@ const HandleTeamsScores = ({ home, away, points, sport }) => {
 
     return (
         <View>
-            {sport !== 'basketball' &&
+            {sport !== 'basketball' && sport !== 'american football' &&
                 <View style={styles.scoreContainer}>
                     <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(home, points)} />
                     <View style={styles.homeContainer}>
@@ -32,8 +33,11 @@ const HandleTeamsScores = ({ home, away, points, sport }) => {
                     <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(away, points)} />
                 </View>
             }
-            {sport === 'basketball' &&
-                <BasketballScores home={home} away={away} styles={styles} points={points}/>
+            {sport.toLowerCase() === 'basketball' &&
+                <BasketballPoints home={home} away={away} points={points} />
+            }
+            {sport.toLowerCase() === 'american football' &&
+                <AmericanFootballPoints home={home} away={away} points={points} />
             }
         </View>
     );
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         justifyContent: 'space-evenly',
-        
+
     },
     homeContainer: {
         alignItems: 'center',
@@ -87,4 +91,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HandleTeamsScores;
+export default HandleTeamsPoints;

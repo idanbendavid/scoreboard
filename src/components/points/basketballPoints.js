@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 
-export default function BasketballScores({ home, away, points }) {
+export default function BasketballPoints({ home, away, points }) {
 
     const [homeScore, setHomeScore] = useState(0);
     const [awayScore, setAwayScore] = useState(0);

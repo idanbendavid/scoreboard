@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import setOrientation from '../common/orientation';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import Stopwatch from '../common/stopwatch';
-import HandleTeamsScores from '../common/teamScores';
+import HandleTeamsScores from '../points/teamScores';
 import LazyLoadingImage from '../common/lazyLoading';
-import EndGame from '../common/endGame';
+import EndGame from '../screens/endGame';
 
 
 export default function Scoreboard({ route }) {
@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
         marginVertical: 40,
         flex: 3,
         flexDirection: 'column',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
+        padding: 5,
         alignItems:'stretch'
     }
 

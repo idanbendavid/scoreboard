@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
-import pointSystem from './pointsSystem';
+import pointSystem from '../points/pointsSystem';
 
 const EnterContestors = ({ navigation, route }) => {
   const [home, setHome] = useState('Home');

@@ -3,9 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoadingScreen from './src/components/screens/loadingScreen';
 import SportScreen from './src/components/screens/sportList';
-import EnterContestors from './src/components/common/contestors';
-import EndGame from './src/components/common/endGame';
-import Scoreboard from './src/components/common/scoreboard';
+import EnterContestors from './src/components/screens/contestors';
+import EndGame from './src/components/screens/endGame';
+import Scoreboard from './src/components/screens/scoreboard';
 
 const Stack = createStackNavigator();
 
