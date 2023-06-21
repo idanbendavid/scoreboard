@@ -3,9 +3,8 @@ import { Text, View, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 
-const Stopwatch = () => {
+const Stopwatch = ({ isRunning, setIsRunning, setResetScore }) => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -31,6 +30,7 @@ const Stopwatch = () => {
   const handleReset = () => {
     setElapsedSeconds(0);
     setIsRunning(false);
+    setResetScore(true);
   };
 
   const formatTime = (totalSeconds) => {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   pause: {
     fontSize: 40,
     color: 'black',
-    marginStart:10
+    marginStart: 10
   },
   stop: {
     fontSize: 40,

@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function AmericanFootballPoints({ home, away, points }) {
+export default function AmericanFootballPoints({ home, away, points, isRunning, resetScore ,setResetScore }) {
 
     const [homeScore, setHomeScore] = useState(0);
     const [awayScore, setAwayScore] = useState(0);
@@ -36,10 +36,20 @@ export default function AmericanFootballPoints({ home, away, points }) {
         }
     }
 
+    useEffect(() => {
+        if (resetScore) {
+            setAwayScore(0);
+            setHomeScore(0);
+            setResetScore(false);
+        }
+    }, [resetScore, setAwayScore, setHomeScore,setResetScore])
+
+
     return (
         <View style={americanFootballStyles.scoreContainer}>
             <View style={americanFootballStyles.homePoints}>
-                {!isHomeTD && !isAwayTD &&
+
+                {isRunning && !isHomeTD && !isAwayTD &&
                     <>
                         <Pressable onPress={() => handleScore(home, points.TouchDown)}>
                             <Text style={americanFootballStyles.points}>TD</Text>
@@ -52,7 +62,7 @@ export default function AmericanFootballPoints({ home, away, points }) {
                         </Pressable>
                     </>
                 }
-                {isHomeTD &&
+                {isRunning && isHomeTD &&
                     <>
                         <Text style={americanFootballStyles.afterTD}>conversation</Text>
                         <Pressable onPress={() => handleAfterTDScore(home, points.TDTryOrSafety)}>
@@ -77,7 +87,7 @@ export default function AmericanFootballPoints({ home, away, points }) {
                 <Text style={americanFootballStyles.awayScore}>{awayScore}</Text>
             </View>
             <View style={americanFootballStyles.awayPoints}>
-                {!isAwayTD && !isHomeTD &&
+                {isRunning && !isAwayTD && !isHomeTD &&
                     <>
                         <Pressable onPress={() => handleScore(away, points.TouchDown)}>
                             <Text style={americanFootballStyles.points}>TD</Text>
@@ -90,7 +100,7 @@ export default function AmericanFootballPoints({ home, away, points }) {
                         </Pressable>
                     </>
                 }
-                {isAwayTD &&
+                {isRunning && isAwayTD &&
                     <>
                         <Text style={americanFootballStyles.afterTD}>conversation</Text>
                         <Pressable onPress={() => handleAfterTDScore(away, points.TDTryOrSafety)}>

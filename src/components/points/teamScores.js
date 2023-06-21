@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import BasketballPoints from './basketballPoints';
 import AmericanFootballPoints from './americanFootballPoints';
 
-const HandleTeamsPoints = ({ home, away, points, sport }) => {
+const HandleTeamsPoints = ({ home, away, points, sport, isRunning, resetScore, setResetScore }) => {
     const [homeScore, setHomeScore] = useState(0);
     const [awayScore, setAwayScore] = useState(0);
 
@@ -16,11 +16,22 @@ const HandleTeamsPoints = ({ home, away, points, sport }) => {
         }
     };
 
+    useEffect(() => {
+        if (resetScore) {
+            setAwayScore(0);
+            setHomeScore(0);
+            setResetScore(false);
+        }
+    }, [resetScore, setAwayScore, setHomeScore,setResetScore])
+
+
     return (
         <View>
             {sport !== 'basketball' && sport !== 'american football' &&
                 <View style={styles.scoreContainer}>
-                    <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(home, points)} />
+                    {isRunning &&
+                        <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(home, points)} />
+                    }
                     <View style={styles.homeContainer}>
                         <Text style={styles.home}>{home}</Text>
                         <Text style={styles.homeScore}>{homeScore}</Text>
@@ -30,14 +41,16 @@ const HandleTeamsPoints = ({ home, away, points, sport }) => {
                         <Text style={styles.away}>{away}</Text>
                         <Text style={styles.awayScore}>{awayScore}</Text>
                     </View>
-                    <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(away, points)} />
+                    {isRunning &&
+                        <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(away, points)} />
+                    }
                 </View>
             }
             {sport.toLowerCase() === 'basketball' &&
-                <BasketballPoints home={home} away={away} points={points} />
+                <BasketballPoints home={home} away={away} points={points} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore}/>
             }
             {sport.toLowerCase() === 'american football' &&
-                <AmericanFootballPoints home={home} away={away} points={points} />
+                <AmericanFootballPoints home={home} away={away} points={points} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore}/>
             }
         </View>
     );

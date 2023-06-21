@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function BasketballPoints({ home, away, points }) {
+export default function BasketballPoints({ home, away, points, isRunning , resetScore, setResetScore}) {
 
     const [homeScore, setHomeScore] = useState(0);
     const [awayScore, setAwayScore] = useState(0);
@@ -14,19 +14,30 @@ export default function BasketballPoints({ home, away, points }) {
         }
     }
 
+    useEffect(() => {
+        if (resetScore) {
+            setAwayScore(0);
+            setHomeScore(0);
+            setResetScore(false);
+        }
+    }, [resetScore, setAwayScore, setHomeScore,setResetScore])
+
+
     return (
         <View style={basketballStyles.scoreContainer}>
-            <View style={basketballStyles.homePoints}>
-                <Pressable onPress={() => handleScore(home, points.onePoint)}>
-                    <Text style={basketballStyles.points}>+1</Text>
-                </Pressable>
-                <Pressable onPress={() => handleScore(home, points.twoPoint)}>
-                    <Text style={basketballStyles.points}>+2</Text>
-                </Pressable>
-                <Pressable onPress={() => handleScore(home, points.threePoint)}>
-                    <Text style={basketballStyles.points}>+3</Text>
-                </Pressable>
-            </View>
+            {isRunning &&
+                <View style={basketballStyles.homePoints}>
+                    <Pressable onPress={() => handleScore(home, points.onePoint)}>
+                        <Text style={basketballStyles.points}>+1</Text>
+                    </Pressable>
+                    <Pressable onPress={() => handleScore(home, points.twoPoint)}>
+                        <Text style={basketballStyles.points}>+2</Text>
+                    </Pressable>
+                    <Pressable onPress={() => handleScore(home, points.threePoint)}>
+                        <Text style={basketballStyles.points}>+3</Text>
+                    </Pressable>
+                </View>
+            }
             <View style={basketballStyles.homeContainer}>
                 <Text style={basketballStyles.home}>{home}</Text>
                 <Text style={basketballStyles.homeScore}>{homeScore}</Text>
@@ -36,17 +47,19 @@ export default function BasketballPoints({ home, away, points }) {
                 <Text style={basketballStyles.away}>{away}</Text>
                 <Text style={basketballStyles.awayScore}>{awayScore}</Text>
             </View>
-            <View style={basketballStyles.awayPoints}>
-                <Pressable onPress={() => handleScore(away, points.onePoint)}>
-                    <Text style={basketballStyles.points}>+1</Text>
-                </Pressable>
-                <Pressable onPress={() => handleScore(away, points.twoPoint)}>
-                    <Text style={basketballStyles.points}>+2</Text>
-                </Pressable>
-                <Pressable onPress={() => handleScore(away, points.threePoint)}>
-                    <Text style={basketballStyles.points}>+3</Text>
-                </Pressable>
-            </View>
+            {isRunning &&
+                <View style={basketballStyles.awayPoints}>
+                    <Pressable onPress={() => handleScore(away, points.onePoint)}>
+                        <Text style={basketballStyles.points}>+1</Text>
+                    </Pressable>
+                    <Pressable onPress={() => handleScore(away, points.twoPoint)}>
+                        <Text style={basketballStyles.points}>+2</Text>
+                    </Pressable>
+                    <Pressable onPress={() => handleScore(away, points.threePoint)}>
+                        <Text style={basketballStyles.points}>+3</Text>
+                    </Pressable>
+                </View>
+            }
         </View>
     )
 }
