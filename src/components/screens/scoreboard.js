@@ -5,7 +5,6 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import Stopwatch from '../common/stopwatch';
 import HandleTeamsScores from '../points/teamScores';
 import LazyLoadingImage from '../common/lazyLoading';
-import EndGame from '../screens/endGame';
 
 
 export default function Scoreboard({ route }) {
@@ -27,7 +26,6 @@ export default function Scoreboard({ route }) {
             <View style={styles.board}>
                 <Stopwatch isRunning={isRunning} setIsRunning={setIsRunning} setResetScore={setResetScore}/>
                 <HandleTeamsScores home={teamNames.home} away={teamNames.away} points={points} sport={sport} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore}/>
-                <EndGame />
             </View>
         </>
     )
@@ -41,10 +39,8 @@ const styles = StyleSheet.create({
         width: '60%',
         height: '100%',
         marginHorizontal: 160,
-        marginVertical: 40,
-        flex: 3,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        marginVertical: 60,
+        flex: 2,
         padding: 5,
         alignItems: 'stretch'
     }

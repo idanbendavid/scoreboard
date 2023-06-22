@@ -1,67 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import { View, Modal, Button, Text, StyleSheet, TouchableOpacity  } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Modal, Pressable, Text, StyleSheet } from 'react-native';
 import setOrientation from '../common/orientation';
-import * as ScreenOrientation from 'expo-screen-orientation';
 
 
-const EndGame = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+const EndGame = ({ modalVisible, setModalVisible, setElapsedSeconds, setIsRunning, setResetScore }) => {
 
-  const handleSave = () => {
+  const continueToPlay = () => {
     setModalVisible(false);
+    setIsRunning(true);
   };
 
-  const handleDiscard = () => {
+  const resetGameData = () => {
+    setIsRunning(false);
+    setElapsedSeconds(0);
+    setResetScore(true);
     setModalVisible(false);
   };
 
   useEffect(() => {
     setOrientation('landscape');
 
-    return () => {
-      // Unlock orientation when component is unmounted
-      ScreenOrientation.unlockAsync();
-    };
-  }, []);
+    if (modalVisible) {
+      setIsRunning(false);
+    }
+  }, [setOrientation]);
 
   return (
-    <View style={styles.endGameContainer}>
-      <Modal visible={modalVisible} animationType="slide">
+    <View>
+      <Modal visible={modalVisible} animationType="fade" >
         <View>
-          <Text>End Game Confirmation</Text>
-          <Text>Do you want to save the game or discard it?</Text>
-          <Button title="Save" onPress={handleSave} />
-          <Button title="Discard" onPress={handleDiscard} />
+          <Text style={styles.headline}>End Game Confirmation</Text>
+          <Text style={styles.question}>Do you want to end the game and reset the time and score?</Text>
+          <View style={styles.modalActions}>
+            <Pressable title="reset" onPress={resetGameData}>
+              <Text style={styles.reset}>reset</Text>
+            </Pressable>
+            <Pressable title="play" onPress={continueToPlay}>
+              <Text style={styles.play}>play</Text>
+            </Pressable>
+          </View>
         </View>
       </Modal>
-      <TouchableOpacity title="End Game" onPress={() => setModalVisible(true)} style={styles.endGameDisplay}>
-      <Text style={styles.text}>End Game</Text>
-      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  endGameContainer:{
-    alignItems: 'center',
+  headline: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    textAlign: 'center',
     marginTop: 10
   },
-  endGameDisplay:{
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: 'black',
-  },
-  text: {
-    fontSize: 16,
+  question: {
+    fontSize: 20,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
+    textAlign: 'center',
+    marginVertical: 10
   },
+  modalActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
+  },
+  play: {
+    backgroundColor: 'green',
+    color: 'white',
+    fontSize: 30,
+    textTransform:'capitalize',
+    padding: 5
+  },
+  reset: {
+    backgroundColor: 'red',
+    color: 'white',
+    fontSize: 30,
+    textTransform:'capitalize',
+    padding: 5
+  }
 })
 
 export default EndGame;

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import EndGame from '../screens/endGame';
 
 
 const Stopwatch = ({ isRunning, setIsRunning, setResetScore }) => {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -25,12 +27,6 @@ const Stopwatch = ({ isRunning, setIsRunning, setResetScore }) => {
 
   const handleStop = () => {
     setIsRunning(false);
-  };
-
-  const handleReset = () => {
-    setElapsedSeconds(0);
-    setIsRunning(false);
-    setResetScore(true);
   };
 
   const formatTime = (totalSeconds) => {
@@ -54,10 +50,13 @@ const Stopwatch = ({ isRunning, setIsRunning, setResetScore }) => {
         {isRunning &&
           <>
             <FontAwesome name="pause-circle" style={styles.pause} onPress={handleStop} />
-            <FontAwesome name="stop-circle" style={styles.stop} onPress={handleReset} />
+            <FontAwesome name="stop-circle" style={styles.stop} onPress={() => setModalVisible(true)} />
           </>
         }
       </View>
+      {modalVisible &&
+        <EndGame modalVisible={modalVisible} setModalVisible={setModalVisible} setElapsedSeconds={setElapsedSeconds} setIsRunning={setIsRunning} setResetScore={setResetScore} />
+      }
     </View>
   );
 };
