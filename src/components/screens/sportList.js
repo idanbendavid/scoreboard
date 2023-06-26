@@ -13,7 +13,7 @@ const SportScreen = ({ navigation }) => {
   ];
 
   const handleSportPress = (sport) => {
-    navigation.navigate('contestors', { sport });
+    navigation.navigate('Game Settings', { sport });
   };
 
   const renderSportItem = ({ item }) => (
