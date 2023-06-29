@@ -3,7 +3,7 @@ import { View, Modal, Pressable, Text, StyleSheet } from 'react-native';
 import setOrientation from '../common/orientation';
 
 
-const EndGame = ({ modalVisible, setModalVisible, setElapsedSeconds, setIsRunning, setResetScore }) => {
+const EndGame = ({ modalVisible, setModalVisible, setElapsedSeconds, setIsRunning, setResetScore, formatTime, setIsExtraTime, setCurrentHalf, setCurrentQuarter, setCurrentThird }) => {
 
   const continueToPlay = () => {
     setModalVisible(false);
@@ -13,6 +13,11 @@ const EndGame = ({ modalVisible, setModalVisible, setElapsedSeconds, setIsRunnin
   const resetGameData = () => {
     setIsRunning(false);
     setElapsedSeconds(0);
+    formatTime(0);
+    setIsExtraTime(false);
+    setCurrentHalf(1);
+    setCurrentThird(1);
+    setCurrentQuarter(1);
     setResetScore(true);
     setModalVisible(false);
   };

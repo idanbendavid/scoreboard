@@ -24,7 +24,7 @@ export default function Scoreboard({ route }) {
         <>
             <LazyLoadingImage source={backgroundImage} />
             <View style={styles.board}>
-                <Stopwatch isRunning={isRunning} setIsRunning={setIsRunning} setResetScore={setResetScore}/>
+                <Stopwatch isRunning={isRunning} setIsRunning={setIsRunning} setResetScore={setResetScore} gameTime={gameTime} gameStyle={gameStyle}/>
                 <HandleTeamsScores home={home} away={away} points={points} sport={sport} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore}/>
             </View>
         </>
