@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import EndGame from '../screens/endGame';
+import calculateTimeTargets from './timeTragets';
+import gameStyleLables from './gameStyleLables';
 
 const Stopwatch = ({ isRunning, setIsRunning, setResetScore, gameTime, gameStyle }) => {
+  
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [currentHalf, setCurrentHalf] = useState(1);
@@ -18,13 +21,12 @@ const Stopwatch = ({ isRunning, setIsRunning, setResetScore, gameTime, gameStyle
     interval = setInterval(() => {
       if (isRunning) {
         setElapsedSeconds((prevElapsedSeconds) => prevElapsedSeconds + 1);
-        checkNotifications(elapsedSeconds + 1, timeTargets);
       }
     }, 1000);
 
     if (
       (gameStyle.toLowerCase() === 'halves' && currentHalf <= timeTargets.length) ||
-      (gameStyle.toLowerCase() === 'third' && currentHalf <= timeTargets.length) ||
+      (gameStyle.toLowerCase() === 'third' && currentThird <= timeTargets.length) ||
       (gameStyle.toLowerCase() === 'quarters' && currentQuarter <= timeTargets.length) ||
       (gameStyle.toLowerCase() === 'full game' && elapsedSeconds >= timeTargets[0])
     ) {
@@ -50,7 +52,7 @@ const Stopwatch = ({ isRunning, setIsRunning, setResetScore, gameTime, gameStyle
       }
     }
     return () => clearInterval(interval);
-  }, [isRunning, gameTime, gameStyle, elapsedSeconds, currentHalf, currentThird, currentQuarter, checkNotifications]);
+  }, [isRunning, gameTime, gameStyle, elapsedSeconds, currentHalf, currentThird, currentQuarter]);
 
   const formatTime = (totalSeconds) => {
 
@@ -64,11 +66,11 @@ const Stopwatch = ({ isRunning, setIsRunning, setResetScore, gameTime, gameStyle
     }
 
     if (gameStyle.toLowerCase() === 'halves') {
-      displayText = `${getHalfLabel(currentHalf)} - ${displayText}`;
+      displayText = `${gameStyleLables(gameStyle, currentHalf)} - ${displayText}`;
     } else if (gameStyle.toLowerCase() === 'third') {
-      displayText = `${getThirdLabel(currentThird)} - ${displayText}`;
+      displayText = `${gameStyleLables(gameStyle, currentThird)} - ${displayText}`;
     } else if (gameStyle.toLowerCase() === 'quarters') {
-      displayText = `${getQuarterLabel(currentQuarter)} - ${displayText}`;
+      displayText = `${gameStyleLables(gameStyle, currentQuarter)} - ${displayText}`;
     }
 
     return displayText;
@@ -78,74 +80,6 @@ const Stopwatch = ({ isRunning, setIsRunning, setResetScore, gameTime, gameStyle
     return value.toString().padStart(2, '0');
   };
 
-
-  const calculateTimeTargets = (gameTime, gameStyle) => {
-    let timeTargets = [];
-
-    switch (gameStyle.toLowerCase()) {
-      case 'full game':
-        timeTargets = [gameTime * 60];
-        break;
-      case 'halves':
-        timeTargets = [(gameTime / 2) * 60, gameTime * 60];
-        break;
-      case 'third':
-        const thirdDuration = (gameTime * 60) / 3;
-        timeTargets = [
-          thirdDuration * 1,
-          thirdDuration * 2,
-          thirdDuration * 3,
-        ];
-        break;
-      case 'quarters':
-        const quarterDuration = (gameTime * 60) / 4;
-        timeTargets = [
-          quarterDuration * 1,
-          quarterDuration * 2,
-          quarterDuration * 3,
-          quarterDuration * 4,
-        ];
-        break;
-      default:
-        timeTargets = [gameTime * 60];
-        break;
-    }
-
-    return timeTargets;
-  };
-
-  const getHalfLabel = (half) => {
-    return `${half === 1 ? '1st Half' : '2nd Half'}`;
-  };
-
-  const getThirdLabel = (third) => {
-    return `${getOrdinalSuffix(third)} third`;
-  };
-
-  const getQuarterLabel = (quarter) => {
-    return `${getOrdinalSuffix(quarter)} Quarter`;
-  };
-
-  const getOrdinalSuffix = (number) => {
-    const suffixes = ['th', 'st', 'nd', 'rd'];
-    const relevantDigits = number % 100;
-
-    return number + (suffixes[(relevantDigits - 20) % 10] || suffixes[relevantDigits] || suffixes[0]);
-  };
-
-  const checkNotifications = (elapsedSeconds, timeTargets) => {
-    if (timeTargets.includes(elapsedSeconds)) {
-      // playNotificationSound();
-      // Display notification to the user
-      console.log(`Time target reached: ${getQuarterLabel(elapsedSeconds)}`);
-      // Replace the following line with the appropriate code for your notification system
-    }
-  };
-
-  const playNotificationSound = () => {
-    // Replace the following line with the appropriate code to play a notification sound
-    console.log('Playing notification sound');
-  };
 
   return (
     <View style={styles.stopwatchContainer}>
