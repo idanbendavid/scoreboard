@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, TextInput, Pressable, StyleSheet, Text, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, TextInput, Pressable, StyleSheet, Text, Alert } from 'react-native';
 import pointSystem from '../points/pointsSystem';
 import SelectDropdown from 'react-native-select-dropdown';
 import { Controller, useForm } from 'react-hook-form';
@@ -31,9 +31,20 @@ const GameSettings = ({ navigation, route }) => {
     });
   };
 
+  useEffect(() => {
+    Alert.alert("in order to share or save your game please sign in");
+  }, [])
 
   return (
     <View>
+      {/* create sign state after server setup */}
+      {/* {isSignedIn && */}
+        <View>
+          <Pressable onPress={() => navigation.navigate(`Sign In`)}>
+            <Text style={styles.signInButton}>Sign In</Text>
+          </Pressable>
+        </View>
+      {/* } */}
       <View style={styles.teamsContainer}>
         <Text style={styles.labels}>Home Team:</Text>
         <Controller
@@ -94,8 +105,6 @@ const GameSettings = ({ navigation, route }) => {
           </View>
         )}
       />
-
-
       <Text style={styles.labels}>Game Style:</Text>
       <Controller
         control={control}
@@ -106,7 +115,7 @@ const GameSettings = ({ navigation, route }) => {
             <SelectDropdown
               value={value}
               data={gameStyleOptions}
-              buttonStyle={styles.buttonStyles}
+              buttonTextStyle={styles.buttonStyles}
               rowTextStyle={styles.rowTextStyle}
               onSelect={(selectedItem) => {
                 onChange(selectedItem)
@@ -119,7 +128,6 @@ const GameSettings = ({ navigation, route }) => {
       <Pressable onPress={handleSubmit(onSubmit)}>
         <Text style={styles.startGameButton}>start game</Text>
       </Pressable>
-
     </View>
   );
 };
@@ -156,7 +164,7 @@ const styles = StyleSheet.create({
   },
   buttonStyles: {
     alignItems: 'center',
-    backgroundColor: '#e6e6e6'
+    textTransform: 'capitalize'
   },
   rowTextStyle: {
     textTransform: 'capitalize',
@@ -166,5 +174,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 5
   },
+  signInButton: {
+    backgroundColor: 'green',
+    color: 'white',
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    padding: 5,
+    fontSize: 18,
+    textTransform: 'capitalize',
+    marginTop: 20,
+    marginLeft: 20
+  }
 });
 export default GameSettings;
