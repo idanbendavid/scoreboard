@@ -5,7 +5,8 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import Stopwatch from '../common/stopwatch';
 import HandleTeamsScores from '../points/teamScores';
 import LazyLoadingImage from '../common/lazyLoading';
-
+import ShareData from '../common/shareData';
+import uuid from 'react-native-uuid';
 
 export default function Scoreboard({ route }) {
 
@@ -13,19 +14,23 @@ export default function Scoreboard({ route }) {
     const [isRunning, setIsRunning] = useState(false);
     const [resetScore, setResetScore] = useState(false);
 
+    const gameId = uuid.v4();
+
     useEffect(() => {
         setOrientation('landscape');
         return () => {
             ScreenOrientation.unlockAsync();
         };
-    }, []);
+    }, [setOrientation, ScreenOrientation]);
 
+    // share data will be displayed to logged usesrs
     return (
         <>
             <LazyLoadingImage source={backgroundImage} />
             <View style={styles.board}>
-                <Stopwatch isRunning={isRunning} setIsRunning={setIsRunning} setResetScore={setResetScore} gameTime={gameTime} gameStyle={gameStyle}/>
-                <HandleTeamsScores home={home} away={away} points={points} sport={sport} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore}/>
+                {/* <ShareData gameId={gameId} sport={sport}/> */}
+                <Stopwatch isRunning={isRunning} setIsRunning={setIsRunning} setResetScore={setResetScore} gameTime={gameTime} gameStyle={gameStyle} />
+                <HandleTeamsScores home={home} away={away} points={points} sport={sport} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore} />
             </View>
         </>
     )
@@ -39,7 +44,7 @@ const styles = StyleSheet.create({
         width: '60%',
         height: '100%',
         marginHorizontal: 160,
-        marginVertical: 60,
+        marginVertical: 50,
         flex: 2,
         padding: 5,
         alignItems: 'stretch'
