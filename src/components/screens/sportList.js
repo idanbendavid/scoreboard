@@ -9,7 +9,8 @@ const SportScreen = ({ navigation }) => {
     { id: 2, name: 'Basketball', backgroundImage: require('../../../assets/basketball.jpg') },
     { id: 3, name: 'Volleyball', backgroundImage: require('../../../assets/volleyball.jpg') },
     { id: 4, name: 'Handball', backgroundImage: require('../../../assets/handball-court.png') },
-    { id: 5, name: 'American Football', backgroundImage: require('../../../assets/american-football.png') }
+    { id: 5, name: 'American Football', backgroundImage: require('../../../assets/american-football.png') },
+    { id: 6, name: 'Hockey', backgroundImage: require('../../../assets/hockey.png') }
   ];
 
   const handleSportPress = (sport) => {
