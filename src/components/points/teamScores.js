@@ -99,8 +99,9 @@ const styles = StyleSheet.create({
     points: {
         backgroundColor: 'grey',
         color: 'black',
-        fontSize: 40,
-        borderRadius: 30
+        fontSize: 30,
+        padding:5,
+        borderRadius: 20
     }
 })
 

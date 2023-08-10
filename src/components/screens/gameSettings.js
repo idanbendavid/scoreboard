@@ -37,14 +37,9 @@ const GameSettings = ({ navigation, route }) => {
 
   return (
     <View>
-      {/* create sign state after server setup */}
-      {/* {isSignedIn && */}
-        <View>
-          <Pressable onPress={() => navigation.navigate(`Sign In`)}>
-            <Text style={styles.signInButton}>Sign In</Text>
-          </Pressable>
-        </View>
-      {/* } */}
+      <Pressable onPress={() => navigation.navigate("Sign In")}>
+        <Text>Sign In</Text>
+      </Pressable>
       <View style={styles.teamsContainer}>
         <Text style={styles.labels}>Home Team:</Text>
         <Controller

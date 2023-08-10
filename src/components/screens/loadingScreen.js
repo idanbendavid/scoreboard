@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import setOrientation from '../common/orientation';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -16,28 +16,35 @@ const LoadingScreen = () => {
       ScreenOrientation.unlockAsync();
     };
   }, []);
-  
   return (
-    <View style={styles.container}>
-      <Image style={styles.backgroundImage} />
-      <Button title="Continue"  onPress={() => {
-        navigation.navigate("Sport");
-      }} />
+    <View style={styles.container} onTouchStart={() => { navigation.navigate("Sport"); }}>
+      <Text style={styles.welcomeTitle}>who is the winner?</Text>
+      <Text style={styles.welcomeScore}>0&nbsp;vs&nbsp;0</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 5,
+    flexDirection: 'column',
+    marginTop: 50
   },
-  backgroundImage: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
+  welcomeTitle: {
+    borderColor: 'black',
+    borderWidth: 1,
+    fontSize: 40,
+    textTransform: 'uppercase',
+    flex: 3,
+    flexDirection:'column',
   },
+  welcomeScore: {
+    borderColor: 'blue',
+    borderWidth: 1,
+    fontSize: 100,
+    flex: 2,
+
+  }
 });
 
 export default LoadingScreen;

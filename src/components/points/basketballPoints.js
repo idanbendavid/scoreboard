@@ -112,8 +112,9 @@ const basketballStyles = StyleSheet.create({
     points: {
         backgroundColor: 'grey',
         color: 'black',
-        fontSize: 30,
-        borderRadius: 25,
+        fontSize: 25,
+        borderRadius: 20,
+        padding: 5,
         marginVertical: 5
     }
 })

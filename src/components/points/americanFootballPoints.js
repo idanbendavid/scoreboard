@@ -170,9 +170,10 @@ const americanFootballStyles = StyleSheet.create({
     points: {
         backgroundColor: 'grey',
         color: 'black',
-        fontSize: 30,
-        borderRadius: 25,
-        marginVertical: 5
+        fontSize: 25,
+        borderRadius: 20,
+        marginVertical: 3,
+        padding: 5,
     },
     afterTD: {
         fontSize: 14,
