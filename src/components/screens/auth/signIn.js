@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { emailRegex, passwordRegex } from '../../common/regex';
+import { signInFirebase } from '../../../firebase/firebaseAuth';
 
 export default function SignIn({ navigation }) {
 
@@ -13,15 +14,7 @@ export default function SignIn({ navigation }) {
     });
 
     const handleSignIn = data => {
-
-        let user = {
-            email: data.email,
-            password: data.password
-        }
-
-        console.log(user)
-        clearErrors(["email","password"])
-
+        let signInUser = signInFirebase(data.email, data.password)
     };
 
     return (
@@ -30,7 +23,7 @@ export default function SignIn({ navigation }) {
             <Controller
                 control={control}
                 name="email"
-                rules={{ required: 'wrong email address', pattern: emailRegex }}
+                // rules={{ required: 'wrong email address', pattern: emailRegex }}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <View>
                         <TextInput
@@ -40,7 +33,7 @@ export default function SignIn({ navigation }) {
                             onChangeText={onChange}
                             style={styles.input}
                         />
-                        {error && (<Text style={styles.error}>{error.message}</Text>)}
+                        {/* {error && (<Text style={styles.error}>{error.message}</Text>)} */}
                     </View>
                 )}
             />
@@ -48,7 +41,7 @@ export default function SignIn({ navigation }) {
             <Controller
                 control={control}
                 name="password"
-                rules={{ required: '1 uppercase 1 lowercase 1 number and minimum 8 characters', pattern: passwordRegex }}
+                // rules={{ required: '1 uppercase 1 lowercase 1 number and minimum 8 characters', pattern: passwordRegex }}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <View>
                         <TextInput
@@ -59,7 +52,7 @@ export default function SignIn({ navigation }) {
                             style={styles.input}
                             secureTextEntry
                         />
-                        {error && (<Text style={styles.error}>{error.message}</Text>)}
+                        {/* {error && (<Text style={styles.error}>{error.message}</Text>)} */}
                     </View>
                 )}
             />

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { emailRegex, passwordRegex } from '../../common/regex';
+import { createFirebaseUser } from '../../../firebase/firebaseAuth';
 
 export default function SignUp({ navigation }) {
 
@@ -9,22 +10,13 @@ export default function SignUp({ navigation }) {
         defaultValues: {
             email: "",
             password: "",
-            favoriteSport: "",
-            age: ''
         }
     });
 
     const handleSignUp = data => {
 
-        let user = {
-            email: data.email,
-            password: data.password,
-            favoriteSport: data.favoriteSport,
-            age: data.age
-        }        
-        console.log(user)
-        
-        clearErrors(["email","password"])
+        let signUpUser = createFirebaseUser(data.email, data.password);
+        clearErrors(["email", "password"])
     };
 
 
@@ -34,7 +26,7 @@ export default function SignUp({ navigation }) {
             <Controller
                 control={control}
                 name="email"
-                rules={{ required: 'wrong email address', pattern: emailRegex }}
+                // rules={{ required: 'wrong email address', pattern: emailRegex }}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <View>
                         <TextInput
@@ -44,7 +36,7 @@ export default function SignUp({ navigation }) {
                             onChangeText={onChange}
                             style={styles.input}
                         />
-                        {error && (<Text style={styles.error}>{error.message}</Text>)}
+                        {/* {error && (<Text style={styles.error}>{error.message}</Text>)} */}
                     </View>
                 )}
             />
@@ -52,7 +44,7 @@ export default function SignUp({ navigation }) {
             <Controller
                 control={control}
                 name="password"
-                rules={{ required: '1 uppercase 1 lowercase 1 number and minimum 8 characters', pattern: passwordRegex }}
+                // rules={{ required: '1 uppercase 1 lowercase 1 number and minimum 8 characters', pattern: passwordRegex }}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <View>
                         <TextInput
@@ -63,11 +55,11 @@ export default function SignUp({ navigation }) {
                             style={styles.input}
                             secureTextEntry
                         />
-                        {error && (<Text style={styles.error}>{error.message}</Text>)}
+                        {/* {error && (<Text style={styles.error}>{error.message}</Text>)} */}
                     </View>
                 )}
             />
-            <Text style={styles.labels}>favorite sport</Text>
+            {/* <Text style={styles.labels}>favorite sport</Text>
             <Controller
                 control={control}
                 name="favoriteSport"
@@ -83,8 +75,8 @@ export default function SignUp({ navigation }) {
                         {error && (<Text style={styles.error}>{error.message}</Text>)}
                     </View>
                 )}
-            />
-            <Text style={styles.labels}>age</Text>
+            /> */}
+            {/* <Text style={styles.labels}>age</Text>
             <Controller
                 control={control}
                 name="age"
@@ -100,7 +92,7 @@ export default function SignUp({ navigation }) {
                         {error && (<Text style={styles.error}>{error.message}</Text>)}
                     </View>
                 )}
-            />
+            /> */}
 
             <Pressable onPress={handleSubmit(handleSignUp)}>
                 <Text style={styles.signUpButton}>Sign Up</Text>
