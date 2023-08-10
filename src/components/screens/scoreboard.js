@@ -6,15 +6,14 @@ import Stopwatch from '../common/stopwatch';
 import HandleTeamsScores from '../points/teamScores';
 import LazyLoadingImage from '../common/lazyLoading';
 import ShareData from '../common/shareData';
-import uuid from 'react-native-uuid';
-
+import * as rnuuid from 'react-native-uuid';
 export default function Scoreboard({ route }) {
 
     const { sport, home, away, backgroundImage, points, gameTime, gameStyle } = route.params;
     const [isRunning, setIsRunning] = useState(false);
     const [resetScore, setResetScore] = useState(false);
 
-    const gameId = uuid.v4();
+    const gameId = rnuuid.default.v4();
 
     useEffect(() => {
         setOrientation('landscape');
@@ -28,7 +27,7 @@ export default function Scoreboard({ route }) {
         <>
             <LazyLoadingImage source={backgroundImage} />
             <View style={styles.board}>
-                {/* <ShareData gameId={gameId} sport={sport}/> */}
+                <ShareData gameId={gameId} sport={sport}/>
                 <Stopwatch isRunning={isRunning} setIsRunning={setIsRunning} setResetScore={setResetScore} gameTime={gameTime} gameStyle={gameStyle} />
                 <HandleTeamsScores home={home} away={away} points={points} sport={sport} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore} />
             </View>

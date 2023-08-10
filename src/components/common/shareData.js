@@ -1,16 +1,20 @@
-import { StyleSheet, View, Share } from 'react-native';
+import { StyleSheet, View, Share,Alert } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
-import React from 'react'
+import React from 'react';
+import * as Linking from 'expo-linking';
 
 export default function ShareData({ gameId, sport }) {
+
+  const redirectUrl = Linking.createURL('path/into/app', {
+    queryParams: { gameId, sport },
+  });
 
   const onShare = async () => {
     // console.log(gameId, "shared")
     try {
       const result = await Share.share({
         message:
-          `join the live ${sport} game hosted by`,
-            url: `expo go`
+          `join the live ${sport} game hosted by ${redirectUrl}`,
         },
       );
       if (result.action === Share.sharedAction) {
