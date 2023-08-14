@@ -1,4 +1,5 @@
 export default function pointSystem(sportName) {
+    let points;
     switch (sportName.toLowerCase()) {
         case 'basketball':
             points = {

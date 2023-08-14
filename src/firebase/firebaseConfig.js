@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { FIREBASE_API_KEY,FIREBASE_AUTH_DOMAIN,FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET, FIREBASE_MESSAGING_SENDER_ID,FIREBASE_APP_ID, FIREBASE_MEASURMENT_ID } from "@env"
-import { getAuth } from "firebase/auth";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
@@ -15,4 +15,5 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+connectAuthEmulator(auth, "http://localhost:9099")
 

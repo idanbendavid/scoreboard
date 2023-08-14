@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { emailRegex, passwordRegex } from '../../common/regex';
-import { signInFirebase } from '../../../firebase/firebaseAuth';
+import { auth } from '../../../firebase/firebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignIn({ navigation }) {
 
@@ -14,8 +15,19 @@ export default function SignIn({ navigation }) {
     });
 
     const handleSignIn = data => {
-        let signInUser = signInFirebase(data.email, data.password)
-    };
+        signInWithEmailAndPassword(auth, data.email, data.password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            clearErrors(["email", "password"])
+            console.log("sign in")
+            navigation.navigate("Sport")
+            return user;
+        })
+        .catch((error) => {
+            console.log(error);
+            return error;
+        });
+    }; 
 
     return (
         <View style={styles.signInPage}>

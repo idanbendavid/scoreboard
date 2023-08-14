@@ -7,16 +7,30 @@ import HandleTeamsScores from '../points/teamScores';
 import LazyLoadingImage from '../common/lazyLoading';
 import ShareData from '../common/shareData';
 import * as rnuuid from 'react-native-uuid';
+import { auth } from '../../firebase/firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 export default function Scoreboard({ route }) {
 
     const { sport, home, away, backgroundImage, points, gameTime, gameStyle } = route.params;
+
     const [isRunning, setIsRunning] = useState(false);
     const [resetScore, setResetScore] = useState(false);
+    const [isConnected, setIsConnected] = useState(false);
 
     const gameId = rnuuid.default.v4();
 
     useEffect(() => {
         setOrientation('landscape');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log(user,"user data");
+                setIsConnected(true);
+            } else {
+                setIsConnected(false)
+            }
+        });
+
         return () => {
             ScreenOrientation.unlockAsync();
         };
@@ -27,7 +41,9 @@ export default function Scoreboard({ route }) {
         <>
             <LazyLoadingImage source={backgroundImage} />
             <View style={styles.board}>
-                <ShareData gameId={gameId} sport={sport}/>
+                {isConnected &&
+                    <ShareData gameId={gameId} sport={sport} />
+                }
                 <Stopwatch isRunning={isRunning} setIsRunning={setIsRunning} setResetScore={setResetScore} gameTime={gameTime} gameStyle={gameStyle} />
                 <HandleTeamsScores home={home} away={away} points={points} sport={sport} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore} />
             </View>
