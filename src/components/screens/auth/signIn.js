@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { emailRegex, passwordRegex } from '../../common/regex';
-import { auth } from '../../../firebase/firebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignIn({ navigation }) {
 
@@ -15,18 +13,7 @@ export default function SignIn({ navigation }) {
     });
 
     const handleSignIn = data => {
-        signInWithEmailAndPassword(auth, data.email, data.password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            clearErrors(["email", "password"])
-            console.log("sign in")
-            navigation.navigate("Sport")
-            return user;
-        })
-        .catch((error) => {
-            console.log(error);
-            return error;
-        });
+       
     }; 
 
     return (

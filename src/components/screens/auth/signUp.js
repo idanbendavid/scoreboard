@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, Pressable, TextInput } from 'react-native'
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { emailRegex, passwordRegex } from '../../common/regex';
-import { auth } from '../../../firebase/firebaseConfig';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignUp({ navigation }) {
 
@@ -15,19 +13,7 @@ export default function SignUp({ navigation }) {
     });
 
     const handleSignUp = data => {
-        createUserWithEmailAndPassword(auth, data.email, data.password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                clearErrors(["email", "password"]);
-                console.log("sign up")
-                navigation.navigate("Sport");
-                return user;
-            })
-            .catch((error) => {
-                console.log(error);
-                return error;
-            });
-
+    
     };
 
 
