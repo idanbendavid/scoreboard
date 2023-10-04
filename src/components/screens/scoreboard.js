@@ -7,8 +7,7 @@ import HandleTeamsScores from '../points/teamScores';
 import LazyLoadingImage from '../common/lazyLoading';
 import ShareData from '../common/shareData';
 import * as rnuuid from 'react-native-uuid';
-import { auth } from '../../firebase/firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
+
 export default function Scoreboard({ route }) {
 
     const { sport, home, away, backgroundImage, points, gameTime, gameStyle } = route.params;
@@ -21,15 +20,6 @@ export default function Scoreboard({ route }) {
 
     useEffect(() => {
         setOrientation('landscape');
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log(user,"user data");
-                setIsConnected(true);
-            } else {
-                setIsConnected(false)
-            }
-        });
 
         return () => {
             ScreenOrientation.unlockAsync();

@@ -26,7 +26,6 @@ const LoadingScreen = () => {
             <Text>Sign In</Text>
           </Pressable>
         </View>
-        &nbsp;
         <View>
           <Pressable onPress={() => navigation.navigate("Sport")}>
             <Text>play as guest</Text>

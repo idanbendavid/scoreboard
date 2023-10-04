@@ -15,7 +15,7 @@ const GameSettings = ({ navigation, route }) => {
     }
   });
 
-  const gameStyleOptions = ["full game", "halves", "third", "quarters"];
+  const gameStyleOptions = ["full game", "halves", "thirds", "quarters"];
 
   const onSubmit = data => {
     const { sport } = route.params;

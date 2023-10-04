@@ -8,7 +8,7 @@ export default function calculateTimeTargets(gameTime,gameStyle){
       case 'halves':
         timeTargets = [(gameTime / 2) * 60, gameTime * 60];
         break;
-      case 'third':
+      case 'thirds':
         const thirdDuration = (gameTime * 60) / 3;
         timeTargets = [
           thirdDuration * 1,
