@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, StyleSheet, Text, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import setOrientation from '../common/orientation';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -9,37 +9,50 @@ const LoadingScreen = () => {
 
   const navigation = useNavigation();
 
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
   useEffect(() => {
     setOrientation('portrait');
+
+    const fade = () => {
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 1000, // Fade out duration
+          useNativeDriver: false,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000, // Fade in duration
+          useNativeDriver: false,
+        }),
+      ]).start(() => fade());
+    };
+
+    fade();
 
     return () => {
       ScreenOrientation.unlockAsync();
     };
-  }, []);
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcomeTitle}>who is the winner?</Text>
-      <Text style={styles.welcomeScore}>0&nbsp;vs&nbsp;0</Text>
-      <View style={styles.connections}>
-        <View>
-          <Pressable onPress={() => navigation.navigate("Sign In")}>
-            <Text>Sign In</Text>
-          </Pressable>
-        </View>
-        <View>
-          <Pressable onPress={() => navigation.navigate("Sport")}>
-            <Text>play as guest</Text>
-          </Pressable>
-        </View>
-      </View>
+  }, [fadeAnim]);
 
-    </View>
+  return (
+    <View onTouchStart={() => navigation.navigate("Sport")} style={styles.container}>
+      <Text style={styles.welcomeTitle}>who is the winner?</Text>
+      <View style={styles.connections}>
+        {<Animated.View style={{ opacity: fadeAnim,}}>
+          <Text style={styles.introButton}>touch to start</Text>
+        </Animated.View>
+        }
+      </View>
+      <Text style={styles.welcomeScore}>0&nbsp;vs&nbsp;0</Text>
+    </View >
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 6,
+    flex: 1,
     flexDirection: 'column',
     marginTop: 50
   },
@@ -59,7 +72,13 @@ const styles = StyleSheet.create({
   },
   connections: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  introButton: {
+    fontSize: 30,
+    textTransform: 'capitalize',
+    fontWeight: 700,
   }
 });
 
