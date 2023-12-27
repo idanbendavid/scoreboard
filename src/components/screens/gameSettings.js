@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, TextInput, Pressable, StyleSheet, Text, Alert } from 'react-native';
 import pointSystem from '../points/pointsSystem';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -31,9 +31,6 @@ const GameSettings = ({ navigation, route }) => {
     });
   };
 
-  useEffect(() => {
-    Alert.alert("in order to share or save your game please sign in");
-  }, [])
 
   return (
     <View>
@@ -166,16 +163,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 5
   },
-  signInButton: {
-    backgroundColor: 'green',
-    color: 'white',
-    textAlign: 'center',
-    alignSelf: 'flex-start',
-    padding: 5,
-    fontSize: 18,
-    textTransform: 'capitalize',
-    marginTop: 20,
-    marginLeft: 20
-  }
 });
 export default GameSettings;
