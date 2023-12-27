@@ -6,8 +6,6 @@ import SportScreen from './src/components/screens/sportList';
 import GameSettings from './src/components/screens/gameSettings';
 import EndGame from './src/components/screens/endGame';
 import Scoreboard from './src/components/screens/scoreboard';
-import SignIn from './src/components/screens/auth/signIn';
-import SignUp from './src/components/screens/auth/signUp';
 
 const Stack = createStackNavigator();
 
@@ -24,8 +22,6 @@ function App() {
         <Stack.Screen name="Game Settings" component={GameSettings} />
         <Stack.Screen options={{ headerShown: false }} name="scoreboard" component={Scoreboard} />
         <Stack.Screen options={{ headerShown: true }} name="endGame" component={EndGame} />
-        <Stack.Screen options={{ headerShown: true }} name="Sign In" component={SignIn} />
-        <Stack.Screen options={{ headerShown: true }} name="Sign Up" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
