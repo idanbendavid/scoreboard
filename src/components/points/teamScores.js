@@ -4,15 +4,32 @@ import { MaterialIcons } from '@expo/vector-icons';
 import BasketballPoints from './basketballPoints';
 import AmericanFootballPoints from './americanFootballPoints';
 
-const HandleTeamsPoints = ({ home, away, points, sport, isRunning, resetScore, setResetScore }) => {
+const HandleTeamsPoints = ({ home, away, points, sport, setIsRunning, isRunning, resetScore, setResetScore, isScoreFalse, setIsScoreFalse }) => {
     const [homeScore, setHomeScore] = useState(0);
     const [awayScore, setAwayScore] = useState(0);
 
     const handleScore = (team, points) => {
-        if (team === home) {
-            setHomeScore((prevScore) => prevScore + points);
-        } else if (team === away) {
-            setAwayScore((prevScore) => prevScore + points);
+        if (points === 0) {
+            setIsScoreFalse(false);
+            setIsRunning(true);
+            return;
+        }
+
+        if (isScoreFalse == true) {
+            if (team === home) {
+                setHomeScore((prevScore) => Math.max(0, prevScore - points));
+                setIsRunning(true);
+            } else if (team === away) {
+                setAwayScore((prevScore) => Math.max(0, prevScore - points));
+                setIsRunning(true);
+            }
+            setIsScoreFalse(false);
+        } else {
+            if (team === home) {
+                setHomeScore((prevScore) => prevScore + points);
+            } else if (team === away) {
+                setAwayScore((prevScore) => prevScore + points);
+            }
         }
     };
 
@@ -22,7 +39,7 @@ const HandleTeamsPoints = ({ home, away, points, sport, isRunning, resetScore, s
             setHomeScore(0);
             setResetScore(false);
         }
-    }, [resetScore, setAwayScore, setHomeScore,setResetScore])
+    }, [resetScore, setAwayScore, setHomeScore, setResetScore])
 
 
     return (
@@ -31,6 +48,11 @@ const HandleTeamsPoints = ({ home, away, points, sport, isRunning, resetScore, s
                 <View style={styles.scoreContainer}>
                     {isRunning &&
                         <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(home, points)} />
+                    }
+                    {isScoreFalse == true && !isRunning &&
+                        <View>
+                            <MaterialIcons name="exposure-minus-1" style={styles.points} onPress={() => handleScore(home, points)} />
+                        </View>
                     }
                     <View style={styles.homeContainer}>
                         <Text style={styles.home}>{home}</Text>
@@ -44,13 +66,18 @@ const HandleTeamsPoints = ({ home, away, points, sport, isRunning, resetScore, s
                     {isRunning &&
                         <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(away, points)} />
                     }
+                    {isScoreFalse == true && !isRunning &&
+                        <View>
+                            <MaterialIcons name="exposure-minus-1" style={styles.points} onPress={() => handleScore(away, points)} />
+                        </View>
+                    }
                 </View>
             }
             {sport.toLowerCase() === 'basketball' &&
-                <BasketballPoints home={home} away={away} points={points} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore}/>
+                <BasketballPoints home={home} away={away} points={points} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore} />
             }
             {sport.toLowerCase() === 'american football' &&
-                <AmericanFootballPoints home={home} away={away} points={points} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore}/>
+                <AmericanFootballPoints home={home} away={away} points={points} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore} />
             }
         </View>
     );
@@ -100,7 +127,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'grey',
         color: 'black',
         fontSize: 30,
-        padding:5,
+        padding: 5,
         borderRadius: 20
     }
 })

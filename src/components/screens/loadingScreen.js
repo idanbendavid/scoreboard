@@ -40,7 +40,7 @@ const LoadingScreen = () => {
     <View onTouchStart={() => navigation.navigate("Sport")} style={styles.container}>
       <Text style={styles.welcomeTitle}>who is the winner?</Text>
       <View style={styles.connections}>
-        {<Animated.View style={{ opacity: fadeAnim,}}>
+        {<Animated.View style={{ opacity: fadeAnim }}>
           <Text style={styles.introButton}>touch to start</Text>
         </Animated.View>
         }
