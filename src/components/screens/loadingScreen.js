@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   introButton: {
     fontSize: 30,
     textTransform: 'capitalize',
-    fontWeight: 700,
+    fontWeight: '700'
   }
 });
 

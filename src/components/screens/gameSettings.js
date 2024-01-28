@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, Pressable, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, Pressable, StyleSheet, Text } from 'react-native';
 import pointSystem from '../points/pointsSystem';
 import SelectDropdown from 'react-native-select-dropdown';
 import { Controller, useForm } from 'react-hook-form';
