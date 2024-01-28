@@ -74,10 +74,10 @@ const HandleTeamsPoints = ({ home, away, points, sport, setIsRunning, isRunning,
                 </View>
             }
             {sport.toLowerCase() === 'basketball' &&
-                <BasketballPoints home={home} away={away} points={points} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore} />
+                <BasketballPoints home={home} away={away} points={points} isRunning={isRunning} setIsRunning={setIsRunning} resetScore={resetScore} setResetScore={setResetScore} isScoreFalse={isScoreFalse} setIsScoreFalse={setIsScoreFalse} />
             }
             {sport.toLowerCase() === 'american football' &&
-                <AmericanFootballPoints home={home} away={away} points={points} isRunning={isRunning} resetScore={resetScore} setResetScore={setResetScore} />
+                <AmericanFootballPoints home={home} away={away} points={points} isRunning={isRunning} setIsRunning={setIsRunning} resetScore={resetScore} setResetScore={setResetScore} isScoreFalse={isScoreFalse} setIsScoreFalse={setIsScoreFalse} />
             }
         </View>
     );

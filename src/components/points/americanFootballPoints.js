@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
-export default function AmericanFootballPoints({ home, away, points, isRunning, resetScore ,setResetScore }) {
+export default function AmericanFootballPoints({ home, away, points, setIsRunning, isRunning, resetScore, isScoreFalse, setIsScoreFalse, setResetScore }) {
 
     const [homeScore, setHomeScore] = useState(0);
     const [awayScore, setAwayScore] = useState(0);
@@ -10,19 +10,28 @@ export default function AmericanFootballPoints({ home, away, points, isRunning, 
 
     const handleScore = (team, points) => {
 
-        if (team === home) {
-            setHomeScore((prevScore) => prevScore + points);
-            if (points === 6) {
-                setIsHomeTD(true);
+        if (points === 0) {
+            setIsScoreFalse(false);
+            setIsRunning(true);
+            return;
+        }
+
+        else {
+            if (team === home) {
+                setHomeScore((prevScore) => prevScore + points);
+                if (points === 6) {
+                    setIsHomeTD(true);
+                }
+            }
+
+            else if (team === away) {
+                setAwayScore((prevScore) => prevScore + points);
+                if (points === 6) {
+                    setIsAwayTD(true);
+                }
             }
         }
 
-        else if (team === away) {
-            setAwayScore((prevScore) => prevScore + points);
-            if (points === 6) {
-                setIsAwayTD(true);
-            }
-        }
     }
 
     const handleAfterTDScore = (team, points) => {
@@ -36,13 +45,25 @@ export default function AmericanFootballPoints({ home, away, points, isRunning, 
         }
     }
 
+    const handleFalseScore = (team, points) => {
+        if (isScoreFalse == true) {
+            if (team == home) {
+                setHomeScore((prevScore) => Math.max(0, prevScore - points));
+                setIsRunning(true);
+            } else if (team == away) {
+                setAwayScore((prevScore) => Math.max(0, prevScore - points));
+                setIsRunning(true);
+            }
+            setIsScoreFalse(false);
+        }
+    }
     useEffect(() => {
         if (resetScore) {
             setAwayScore(0);
             setHomeScore(0);
             setResetScore(false);
         }
-    }, [resetScore, setAwayScore, setHomeScore,setResetScore])
+    }, [resetScore, setAwayScore, setHomeScore, setResetScore])
 
 
     return (
@@ -73,6 +94,23 @@ export default function AmericanFootballPoints({ home, away, points, isRunning, 
                         </Pressable>
                         <Pressable onPress={() => handleAfterTDScore(home, points.noScore)}>
                             <Text style={americanFootballStyles.points}>Miss</Text>
+                        </Pressable>
+                    </>
+                }
+                {isScoreFalse == true && !isRunning && 
+                    <>
+                        <Text style={americanFootballStyles.afterTD}>conversation</Text>
+                        <Pressable onPress={() => handleFalseScore(home, points.FieldGoal)}>
+                            <Text style={americanFootballStyles.points}>- 3 FG</Text>
+                        </Pressable>
+                        <Pressable onPress={() => handleFalseScore(home, points.TouchDown)}>
+                            <Text style={americanFootballStyles.points}>- 6 TD</Text>
+                        </Pressable>
+                        <Pressable onPress={() => handleFalseScore(home, points.TDTryOrSafety)}>
+                            <Text style={americanFootballStyles.points}>- 1 Try</Text>
+                        </Pressable>
+                        <Pressable onPress={() => handleFalseScore(home, points.safety || points.TDExtraTD)}>
+                            <Text style={americanFootballStyles.points}>- 2 safety / Extra TouchDown</Text>
                         </Pressable>
                     </>
                 }
@@ -111,6 +149,23 @@ export default function AmericanFootballPoints({ home, away, points, isRunning, 
                         </Pressable>
                         <Pressable onPress={() => handleAfterTDScore(away, points.noScore)}>
                             <Text style={americanFootballStyles.points}>Miss</Text>
+                        </Pressable>
+                    </>
+                }
+                {isScoreFalse == true && !isRunning && 
+                    <>
+                       <Text style={americanFootballStyles.afterTD}>conversation</Text>
+                        <Pressable onPress={() => handleFalseScore(away, points.FieldGoal)}>
+                            <Text style={americanFootballStyles.points}>- 3 FG</Text>
+                        </Pressable>
+                        <Pressable onPress={() => handleFalseScore(away, points.TouchDown)}>
+                            <Text style={americanFootballStyles.points}>- 6 TD</Text>
+                        </Pressable>
+                        <Pressable onPress={() => handleFalseScore(away, points.TDTryOrSafety)}>
+                            <Text style={americanFootballStyles.points}>- 1 Try</Text>
+                        </Pressable>
+                        <Pressable onPress={() => handleFalseScore(away, points.safety || points.TDExtraTD)}>
+                            <Text style={americanFootballStyles.points}>- 2 safety / Extra TouchDown</Text>
                         </Pressable>
                     </>
                 }
