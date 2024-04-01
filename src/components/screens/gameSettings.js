@@ -1,120 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Pressable, StyleSheet, Text } from 'react-native';
 import pointSystem from '../points/pointsSystem';
 import SelectDropdown from 'react-native-select-dropdown';
-import { Controller, useForm } from 'react-hook-form';
 
 const GameSettings = ({ navigation, route }) => {
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
-    defaultValues: {
-      home: 'Home',
-      away: 'Away',
-      gameTime: null,
-      gameStyle: null
-    }
-  });
-
   const gameStyleOptions = ["full game", "halves", "thirds", "quarters"];
 
-  const onSubmit = data => {
+  const [form, setForm] = useState({
+    home: 'Home',
+    away: 'Away',
+    gameTime: null,
+    gameStyle: ''
+  })
+
+
+  const onSubmit = () => {
     const { sport } = route.params;
 
     navigation.navigate("scoreboard", {
       sport: sport.name.toLowerCase(),
-      home: data.home,
-      away: data.away,
       backgroundImage: sport.backgroundImage,
       points: pointSystem(sport.name),
-      gameTime: data.gameTime,
-      gameStyle: data.gameStyle
+      form
     });
   };
 
 
   return (
     <View>
-      <View style={styles.teamsContainer}>
-        <Text style={styles.labels}>Home Team:</Text>
-        <Controller
-          control={control}
-          name="home"
-          rules={{ required: 'team name is required' }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <View>
-              <TextInput
-                inputMode='text'
-                placeholder="Home"
-                value={value}
-                onChangeText={onChange}
-                style={styles.input}
-              />
-              {error && (<Text style={styles.error}>{error.message}</Text>)}
-            </View>
-          )}
-        />
+      <Text style={styles.labels}>Home Team:</Text>
 
-        <Text style={styles.labels}>Away Team:</Text>
+      <TextInput
+        inputMode='text'
+        placeholder="Home"
+        value={form.home}
+        onChangeText={home => { setForm({ ...form, home }) }}
+        style={styles.input}
+      />
 
-        <Controller
-          control={control}
-          name="away"
-          rules={{ required: 'team name is required' }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <View>
-              <TextInput
-                inputMode='text'
-                placeholder="Away"
-                value={value}
-                onChangeText={onChange}
-                style={styles.input}
-              />
-              {error && (<Text style={styles.error}>{error.message}</Text>)}
-            </View>
-          )}
-        />
-      </View>
-
+      <Text style={styles.labels}>Away Team:</Text>
+      <TextInput
+        inputMode='text'
+        placeholder="Away"
+        value={form.away}
+        onChangeText={away => { setForm({ ...form, away }) }}
+        style={styles.input}
+      />
 
       <Text style={styles.labels}>Game Time:</Text>
-      <Controller
-        control={control}
-        name={"gameTime"}
-        rules={{ required: 'please include the game target time' }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <View>
-            <TextInput
-              value={value}
-              inputMode='numeric'
-              placeholder="Minutes"
-              onChangeText={onChange}
-              style={styles.input}
-            />
-            {error && (<Text style={styles.error}>{error.message}</Text>)}
-          </View>
-        )}
+      <TextInput
+        value={form.gameTime}
+        inputMode='numeric'
+        placeholder="Minutes"
+        onChangeText={gameTime => { setForm({ ...form, gameTime}) }}
+        style={styles.input}
       />
+
       <Text style={styles.labels}>Game Style:</Text>
-      <Controller
-        control={control}
-        name="gameStyle"
-        rules={{ required: 'must select the style of the game' }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <View>
-            <SelectDropdown
-              value={value}
-              data={gameStyleOptions}
-              buttonTextStyle={styles.buttonStyles}
-              rowTextStyle={styles.rowTextStyle}
-              onSelect={(selectedItem) => {
-                onChange(selectedItem)
-              }}
-            />
-            {error && (<Text style={styles.error}>{error.message}</Text>)}
-          </View>
-        )}
+      <SelectDropdown
+        value={gameStyleOptions[0]}
+        data={gameStyleOptions}
+        buttonTextStyle={styles.buttonStyles}
+        rowTextStyle={styles.rowTextStyle}
+        onSelect={(selectedItem) => { setForm({ ...form, gameStyle: selectedItem }) }}
       />
-      <Pressable onPress={handleSubmit(onSubmit)}>
+
+      <Pressable onPress={onSubmit}>
         <Text style={styles.startGameButton}>start game</Text>
       </Pressable>
     </View>

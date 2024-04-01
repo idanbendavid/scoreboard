@@ -10,7 +10,8 @@ import * as rnuuid from 'react-native-uuid';
 
 export default function Scoreboard({ route }) {
 
-    const { sport, home, away, backgroundImage, points, gameTime, gameStyle } = route.params;
+    const { sport, backgroundImage, points } = route.params;
+    const { home, away, gameTime, gameStyle } = route.params.form;
 
     const [isRunning, setIsRunning] = useState(false);
     const [isScoreFalse, setIsScoreFalse] = useState(false);
