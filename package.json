@@ -2,6 +2,9 @@
   "name": "scorekeeper",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "license": "MIT",
+  "author": "Idan Ben David",
+  "contributors": [],
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
