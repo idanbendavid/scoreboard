@@ -18,6 +18,16 @@ export default function pointSystem(sportName) {
                 noScore: 0,
             }
             break;
+        case 'tennis':
+            points = {
+                1: 15,
+                2: 30,
+                3: 40,
+                ad: 'AD',
+                duece: 'DUECE',
+                set: 0
+            };
+            break;
         default:
             points = 1;
     }

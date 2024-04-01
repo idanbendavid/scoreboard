@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         justifyContent: 'space-evenly',
-
     },
     homeContainer: {
         alignItems: 'center',
