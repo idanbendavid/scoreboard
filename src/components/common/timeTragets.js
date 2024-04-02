@@ -2,9 +2,6 @@ export default function calculateTimeTargets(gameTime,gameStyle){
     let timeTargets = [];
 
     switch (gameStyle.toLowerCase()) {
-      case 'full game':
-        timeTargets = [gameTime * 60];
-        break;
       case 'halves':
         timeTargets = [(gameTime / 2) * 60, gameTime * 60];
         break;
@@ -25,7 +22,7 @@ export default function calculateTimeTargets(gameTime,gameStyle){
           quarterDuration * 4,
         ];
         break;
-      default:
+        default:
         timeTargets = [gameTime * 60];
         break;
     }
