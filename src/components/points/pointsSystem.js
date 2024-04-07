@@ -1,14 +1,14 @@
 export default function pointSystem(sportName) {
     let points;
-    switch (sportName.toLowerCase()) {
-        case 'basketball':
+    switch (sportName) {
+        case 'Basketball':
             points = {
                 onePoint: 1,
                 twoPoint: 2,
                 threePoint: 3,
             };
             break;
-        case 'american football':
+        case 'American Football':
             points = {
                 TouchDown: 6,
                 FieldGoal: 3,
@@ -18,7 +18,7 @@ export default function pointSystem(sportName) {
                 noScore: 0,
             }
             break;
-        case 'tennis':
+        case 'Tennis':
             points = {
                 1: 15,
                 2: 30,

@@ -25,26 +25,26 @@ const Stopwatch = ({ isRunning, setIsRunning, setResetScore, gameTime, gameStyle
     }, 1000);
 
     if (
-      (gameStyle.toLowerCase() === 'halves' && currentHalf <= timeTargets.length) ||
-      (gameStyle.toLowerCase() === 'third' && currentThird <= timeTargets.length) ||
-      (gameStyle.toLowerCase() === 'quarters' && currentQuarter <= timeTargets.length) ||
-      (gameStyle.toLowerCase() === 'full game' && elapsedSeconds >= timeTargets[0])
+      (gameStyle === 'Halves' && currentHalf <= timeTargets.length) ||
+      (gameStyle === 'Thirds' && currentThird <= timeTargets.length) ||
+      (gameStyle === 'Quarters' && currentQuarter <= timeTargets.length) ||
+      (gameStyle === 'Full Game' && elapsedSeconds >= timeTargets[0])
     ) {
       if (elapsedSeconds >= timeTargets[timeTargets.length - 1]) {
         setIsExtraTime(true);
       }
 
-      if (gameStyle.toLowerCase() === 'halves' && currentHalf <= timeTargets.length) {
+      if (gameStyle === 'Halves' && currentHalf <= timeTargets.length) {
         const timeTarget = timeTargets[currentHalf - 1];
         if (elapsedSeconds >= timeTarget) {
           setCurrentHalf((prevHalf) => prevHalf + 1);
         }
-      } else if (gameStyle.toLowerCase() === 'third' && currentThird <= timeTargets.length) {
+      } else if (gameStyle === 'Thirds' && currentThird <= timeTargets.length) {
         const timeTarget = timeTargets[currentThird - 1];
         if (elapsedSeconds >= timeTarget) {
           setCurrentThird((prevThird) => prevThird + 1);
         }
-      } else if (gameStyle.toLowerCase() === 'quarters' && currentQuarter <= timeTargets.length) {
+      } else if (gameStyle === 'Quarters' && currentQuarter <= timeTargets.length) {
         const timeTarget = timeTargets[currentQuarter - 1];
         if (elapsedSeconds >= timeTarget) {
           setCurrentQuarter((prevQuarter) => prevQuarter + 1);
@@ -65,11 +65,11 @@ const Stopwatch = ({ isRunning, setIsRunning, setResetScore, gameTime, gameStyle
       return `Extra Time ${displayText}`;
     }
 
-    if (gameStyle.toLowerCase() === 'halves') {
+    if (gameStyle === 'Halves') {
       displayText = `${gameStyleLables(gameStyle, currentHalf)} - ${displayText}`;
-    } else if (gameStyle.toLowerCase() === 'third') {
+    } else if (gameStyle === 'Thirds') {
       displayText = `${gameStyleLables(gameStyle, currentThird)} - ${displayText}`;
-    } else if (gameStyle.toLowerCase() === 'quarters') {
+    } else if (gameStyle === 'Quarters') {
       displayText = `${gameStyleLables(gameStyle, currentQuarter)} - ${displayText}`;
     }
 

@@ -5,7 +5,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 
 const GameSettings = ({ navigation, route }) => {
 
-  const gameStyleOptions = ["full game", "halves", "thirds", "quarters"];
+  const gameStyleOptions = ["Full Game", "Halves", "Thirds", "Quarters"];
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -48,7 +48,7 @@ const GameSettings = ({ navigation, route }) => {
 
     if (isFormValid) {
       navigation.navigate("scoreboard", {
-        sport: sport.name.toLowerCase(),
+        sport: sport.name,
         backgroundImage: sport.backgroundImage,
         points: pointSystem(sport.name),
         form
@@ -88,7 +88,6 @@ const GameSettings = ({ navigation, route }) => {
 
       <Text style={styles.labels}>Game Style:</Text>
       <SelectDropdown
-        value={gameStyleOptions[0]}
         data={gameStyleOptions}
         buttonTextStyle={styles.buttonStyles}
         rowTextStyle={styles.rowTextStyle}

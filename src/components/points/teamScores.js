@@ -44,7 +44,7 @@ const HandleTeamsPoints = ({ home, away, points, sport, setIsRunning, isRunning,
 
     return (
         <View>
-            {sport !== 'basketball' && sport !== 'american football' &&
+            {sport !== 'Basketball' && sport !== 'American Football' &&
                 <View style={styles.scoreContainer}>
                     {isRunning &&
                         <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(home, points)} />
@@ -73,10 +73,10 @@ const HandleTeamsPoints = ({ home, away, points, sport, setIsRunning, isRunning,
                     }
                 </View>
             }
-            {sport.toLowerCase() === 'basketball' &&
+            {sport === 'Basketball' &&
                 <BasketballPoints home={home} away={away} points={points} isRunning={isRunning} setIsRunning={setIsRunning} resetScore={resetScore} setResetScore={setResetScore} isScoreFalse={isScoreFalse} setIsScoreFalse={setIsScoreFalse} />
             }
-            {sport.toLowerCase() === 'american football' &&
+            {sport === 'American Football' &&
                 <AmericanFootballPoints home={home} away={away} points={points} isRunning={isRunning} setIsRunning={setIsRunning} resetScore={resetScore} setResetScore={setResetScore} isScoreFalse={isScoreFalse} setIsScoreFalse={setIsScoreFalse} />
             }
         </View>

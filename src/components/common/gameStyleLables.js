@@ -1,13 +1,13 @@
 export default function gameStyleLables(gameStyle, currnetStage) {
     let gameStyleLabel;
     switch (gameStyle) {
-        case 'halves':
+        case 'Halves':
             gameStyleLabel = `${currnetStage === 1 ? '1st Half' : '2nd Half'}`;
             break;
-        case 'third':
+        case 'Thirds':
             gameStyleLabel = `${getOrdinalSuffix(currnetStage)} third`;
             break;
-        case 'quarters':
+        case 'Quarters':
             gameStyleLabel = `${getOrdinalSuffix(currnetStage)} Quarter`;
             break;
         default:
