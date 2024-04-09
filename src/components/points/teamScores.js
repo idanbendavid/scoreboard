@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import BasketballPoints from './basketballPoints';
 import AmericanFootballPoints from './americanFootballPoints';
+import VolleyballPoints from './volleyballPoints';
 
 const HandleTeamsPoints = ({ home, away, points, sport, setIsRunning, isRunning, resetScore, setResetScore, isScoreFalse, setIsScoreFalse }) => {
     const [homeScore, setHomeScore] = useState(0);
@@ -44,7 +45,7 @@ const HandleTeamsPoints = ({ home, away, points, sport, setIsRunning, isRunning,
 
     return (
         <View>
-            {sport !== 'Basketball' && sport !== 'American Football' &&
+            {sport !== 'Basketball' && sport !== 'American Football' && sport !== 'Volleyball' &&
                 <View style={styles.scoreContainer}>
                     {isRunning &&
                         <MaterialIcons name="exposure-plus-1" style={styles.points} onPress={() => handleScore(home, points)} />
@@ -78,6 +79,9 @@ const HandleTeamsPoints = ({ home, away, points, sport, setIsRunning, isRunning,
             }
             {sport === 'American Football' &&
                 <AmericanFootballPoints home={home} away={away} points={points} isRunning={isRunning} setIsRunning={setIsRunning} resetScore={resetScore} setResetScore={setResetScore} isScoreFalse={isScoreFalse} setIsScoreFalse={setIsScoreFalse} />
+            }
+            {sport === 'Volleyball' &&
+                <VolleyballPoints home={home} away={away} points={points} isRunning={isRunning} setIsRunning={setIsRunning} resetScore={resetScore} setResetScore={setResetScore} isScoreFalse={isScoreFalse} setIsScoreFalse={setIsScoreFalse} />
             }
         </View>
     );
